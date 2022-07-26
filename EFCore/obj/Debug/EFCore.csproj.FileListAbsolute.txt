@@ -1,0 +1,12 @@
+C:\Users\muham\source\repos\ImageReviewer\EFCore\bin\Debug\EFCore.dll.config
+C:\Users\muham\source\repos\ImageReviewer\EFCore\bin\Debug\EFCore.dll
+C:\Users\muham\source\repos\ImageReviewer\EFCore\bin\Debug\EFCore.pdb
+C:\Users\muham\source\repos\ImageReviewer\EFCore\bin\Debug\EntityFramework.dll
+C:\Users\muham\source\repos\ImageReviewer\EFCore\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\muham\source\repos\ImageReviewer\EFCore\bin\Debug\EntityFramework.xml
+C:\Users\muham\source\repos\ImageReviewer\EFCore\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\muham\source\repos\ImageReviewer\EFCore\obj\Debug\EFCore.csproj.AssemblyReference.cache
+C:\Users\muham\source\repos\ImageReviewer\EFCore\obj\Debug\EFCore.csproj.CoreCompileInputs.cache
+C:\Users\muham\source\repos\ImageReviewer\EFCore\obj\Debug\EFCore.csproj.CopyComplete
+C:\Users\muham\source\repos\ImageReviewer\EFCore\obj\Debug\EFCore.dll
+C:\Users\muham\source\repos\ImageReviewer\EFCore\obj\Debug\EFCore.pdb

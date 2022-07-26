@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ImageReviewerDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tblImage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ImagePath" Type="String" MaxLength="400" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="tblUserImagePreferences" Relationship="Self.FK_Image" FromRole="tblImages" ToRole="tblUserImagePreference" />
+  </EntityType>
+  <EntityType Name="tblUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="200" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="tblUserImagePreferences" Relationship="Self.FK_User" FromRole="tblUser" ToRole="tblUserImagePreference" />
+  </EntityType>
+  <EntityType Name="tblUserImagePreference">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="ImageId" Type="Int32" Nullable="false" />
+    <Property Name="Preference" Type="Boolean" />
+    <NavigationProperty Name="tblImage" Relationship="Self.FK_Image" FromRole="tblUserImagePreference" ToRole="tblImages" />
+    <NavigationProperty Name="tblUser" Relationship="Self.FK_User" FromRole="tblUserImagePreference" ToRole="tblUser" />
+  </EntityType>
+  <Association Name="FK_Image">
+    <End Role="tblImages" Type="Self.tblImage" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tblUserImagePreference" Type="Self.tblUserImagePreference" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblImages">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblUserImagePreference">
+        <PropertyRef Name="ImageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tblUserImagePreference" Type="Self.tblUserImagePreference" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblUserImagePreference">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ImageReviewerDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tblImages" EntityType="Self.tblImage" />
+    <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
+    <EntitySet Name="tblUserImagePreferences" EntityType="Self.tblUserImagePreference" />
+    <AssociationSet Name="FK_Image" Association="Self.FK_Image">
+      <End Role="tblImages" EntitySet="tblImages" />
+      <End Role="tblUserImagePreference" EntitySet="tblUserImagePreferences" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User" Association="Self.FK_User">
+      <End Role="tblUser" EntitySet="tblUsers" />
+      <End Role="tblUserImagePreference" EntitySet="tblUserImagePreferences" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

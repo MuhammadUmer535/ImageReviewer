@@ -1,0 +1,41 @@
+﻿@using ImageReviewerAPIs.Models
+@model UserImagePreference
+@{
+    ViewBag.Title = "Random Image";
+}
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <input type="hidden" id="hdnId" value=@Model.Id />
+    <div style="text-align:center">
+        <img width="80%" src=@Model.ImagePath />
+        <br>
+        <i onclick="myFunction('like')" class="fa-random fa fa-thumbs-up"></i> &nbsp;&nbsp;&nbsp;&nbsp;
+        <i onclick="myFunction('unlike')" class="fa-random fa fa-thumbs-down"></i>
+    </div>
+</p>
+
+<script type="text/javascript">
+    function myFunction(impression) {
+
+        var preference = impression == 'like';
+        var id = $("#hdnId").val();
+
+        $.ajax({
+            dataType: "json",
+            type: "POST",
+            url: "/Home/UpdatePreference",
+            data: { id: id, preference: preference },
+            async: false,
+            success: function (data) {
+                if (data.success == 'true') {
+                    window.location = "/Home/PreferenceHistory"
+                }
+                else {
+                    alert("Some Error Occurred!")
+                }
+            }
+        });
+
+    };
+</script>

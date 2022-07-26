@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ImageReviewerDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tblImages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ImagePath" Type="char" MaxLength="400" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="char" MaxLength="200" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblUserImagePreference">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="ImageId" Type="int" Nullable="false" />
+    <Property Name="Preference" Type="bit" />
+  </EntityType>
+  <Association Name="FK_Image">
+    <End Role="tblImages" Type="Self.tblImages" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tblUserImagePreference" Type="Self.tblUserImagePreference" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblImages">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblUserImagePreference">
+        <PropertyRef Name="ImageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tblUserImagePreference" Type="Self.tblUserImagePreference" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblUserImagePreference">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ImageReviewerDBModelStoreContainer">
+    <EntitySet Name="tblImages" EntityType="Self.tblImages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblUserImagePreference" EntityType="Self.tblUserImagePreference" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Image" Association="Self.FK_Image">
+      <End Role="tblImages" EntitySet="tblImages" />
+      <End Role="tblUserImagePreference" EntitySet="tblUserImagePreference" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User" Association="Self.FK_User">
+      <End Role="tblUser" EntitySet="tblUser" />
+      <End Role="tblUserImagePreference" EntitySet="tblUserImagePreference" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
